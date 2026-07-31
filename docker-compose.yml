@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    tty: true
+    depends_on:
+      - db
+
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: docupulse
+      POSTGRES_USER: docupulse
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
