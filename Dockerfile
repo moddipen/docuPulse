@@ -1,4 +1,6 @@
 FROM php:8.4-cli
+# NOTE: this base image's default CMD is `php -a` (interactive REPL, "php >").
+# The CMD at the bottom MUST override it, or the container will not serve HTTP.
 
 # Tools + Postgres extension (you had these — keep)
 RUN apt-get update && apt-get install -y unzip libpq-dev
