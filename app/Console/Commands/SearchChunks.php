@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 
 use Illuminate\Support\Str;
 use App\Models\DocumentChunk;
-#[Signature('docupulse:search {question}')]
+#[Signature('docupulse:search {question} {--tenant_id=1}')]
 #[Description('Command description')]
 class SearchChunks extends Command
 {
@@ -18,8 +18,9 @@ class SearchChunks extends Command
     public function handle()
     {
         $question = $this->argument('question');
+        $tenant_id = (int) $this->option('tenant_id');
         $embedding = Str::of($question)->toEmbeddings();
-        $results = DocumentChunk::nearestTo($embedding)->get();
+        $results = DocumentChunk::nearestTo($embedding, $tenant_id)->get();
         foreach ($results as $chunk) {
             $this->info(sprintf(
                 'distance %.4f | %s',
