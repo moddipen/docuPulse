@@ -4,3 +4,6 @@ use App\Http\Controllers\AskController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/ask', [AskController::class, 'ask']);
+Route::get('/', function () {
+    return view('ask');
+});
