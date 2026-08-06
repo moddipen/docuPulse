@@ -13,7 +13,7 @@ class AskController extends Controller
         // Validate the untrusted HTTP input. A failure returns a 422 JSON
         // response automatically, before any AI work happens.
         $validated = $request->validate([
-            'question'  => ['required', 'string'],
+            'question'  => ['required', 'string','max:1000'],
             'tenant_id' => ['required', 'integer'],
         ]);
 
